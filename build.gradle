@@ -165,6 +165,7 @@ uploadArchives {
       }
    }
 }
+uploadArchives.dependsOn test, build
 
 task checkPropsForDeployment << {
     if(System.properties[TARGET_ENV_SYS_PROPERTY] == null
