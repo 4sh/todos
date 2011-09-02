@@ -81,6 +81,7 @@ configurations {
     intTestCompile { extendsFrom testCompile }
     intTestRuntime { extendsFrom intTestCompile, runtime }
     ssh
+    deployerJars
 }
 
 dependencies {
@@ -94,6 +95,8 @@ dependencies {
     )
     testRuntime 'net.sourceforge.cobertura:cobertura:1.9.4.1'
     ssh 'org.apache.ant:ant-jsch:1.7.0'
+    // to use WebDav protocol on upload
+    deployerJars "org.apache.maven.wagon:wagon-webdav-jackrabbit:1.0"
 }
 
 sourceSets {
@@ -128,6 +131,39 @@ if(STANDALONE_PACKAGING){
             }
         }
     }
+}
+
+task packageJavadoc(type: Jar, dependsOn: 'javadoc') {
+   from javadoc.destinationDir
+   classifier = 'javadoc'
+}
+
+task packageSources(type: Jar) {
+   from sourceSets.main.allSource
+   classifier = 'sources'
+}
+artifacts {
+   archives(packageJavadoc) {
+      type = 'javadoc'
+      extension = 'jar'
+   }
+   archives(packageSources)
+}
+
+uploadArchives {
+   repositories {
+      deployer = mavenDeployer {
+        // you might use this configuration not to generate
+        // date based artefact names
+        // uniqueVersion = false
+        configureAuth = {
+           authentication(userName: releasesRepoUsername, password: releasesRepoPassword)
+        }
+        configuration = configurations.deployerJars
+        snapshotRepository(url: "dav:http://repo.4sh.fr/libs-snapshot-local", configureAuth)
+        repository(url: "dav:http://repo.4sh.fr/libs-release-local/", configureAuth)
+      }
+   }
 }
 
 task checkPropsForDeployment << {
