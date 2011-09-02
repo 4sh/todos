@@ -224,6 +224,9 @@ task initializeIntTestContext << {
 }
 intTestClasses.dependsOn initializeIntTestContext
 
+test.onlyIf { ! Boolean.getBoolean('skip.tests') }
+intTest.onlyIf { ! Boolean.getBoolean('skip.tests') }
+
 // For cobertura ...
 if ("true".equals(System.getProperty(COVERAGE_SYS_PROPERTY))) {
     gradle.taskGraph.beforeTask { task ->
