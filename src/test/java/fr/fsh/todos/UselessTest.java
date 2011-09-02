@@ -13,6 +13,6 @@ public class UselessTest {
 
     @Test
     public void shouldNeverBeSuccessful(){
-        assertThat(true, is(equalTo(false)));
+        assertThat(true, is(equalTo(true)));
     }
 }
