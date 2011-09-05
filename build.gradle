@@ -216,19 +216,22 @@ task startTODOS(dependsOn: [initSsh, checkPropsForDeployment]) << {
         trust: true, failonerror: true)
 }
 
-task intTest(type: Test) {
+task intTest(type: Test /* not really useful to re-do unit test before integ tests, dependsOn: 'test' */) {
     systemProperties = System.properties
     testClassesDir = sourceSets.intTest.classesDir
     classpath = sourceSets.intTest.runtimeClasspath
 }
+intTest.onlyIf { ! Boolean.getBoolean('skip.tests') }
 
 task initializeIntTestContext << {
     ant.echo "TODO: do things here !"
 }
 intTestClasses.dependsOn initializeIntTestContext
 
+test {
+    systemProperties = System.properties
+}
 test.onlyIf { ! Boolean.getBoolean('skip.tests') }
-intTest.onlyIf { ! Boolean.getBoolean('skip.tests') }
 
 // For cobertura ...
 if ("true".equals(System.getProperty(COVERAGE_SYS_PROPERTY))) {
