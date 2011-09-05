@@ -99,7 +99,8 @@ public class SelectUnselectLineTest {
 
         createWebDriver("Selecting & unselecting radio button");
 
-        driver.get("http://qa.todos.4sh.fr/");
+        String baseUrl = System.getProperty("integTest.baseUrl", "http://qa.todos.4sh.fr/");
+        driver.get(baseUrl);
         assertThat(driver.findElements(By.xpath("//tr[contains(@class,\"task\")]")).size(), is(equalTo(3)));
         assertThat(driver.findElements(By.xpath("//tr[contains(@class,\"done\")]")).size(), is(equalTo(0)));
 
