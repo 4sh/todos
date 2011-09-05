@@ -217,6 +217,7 @@ task startTODOS(dependsOn: [initSsh, checkPropsForDeployment]) << {
 }
 
 task intTest(type: Test) {
+    systemProperties = System.properties
     testClassesDir = sourceSets.intTest.classesDir
     classpath = sourceSets.intTest.runtimeClasspath
 }
