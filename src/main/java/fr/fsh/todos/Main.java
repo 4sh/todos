@@ -22,15 +22,20 @@ public class Main {
             System.exit(-1);
         }
 
-        final RestServer rs = RestServerFactory.createRestServer(options.httpPort());
-        rs.addRoutes(
-                // new RedirectRoute("/", "/hello.html"),
-                // Not really a static resource (located in webapp folder) since it is provided
-                // by jewas library. So it must be declared before the StaticResourcesRoute !
-                new SimpleFileRoute("/public/js/jewas/jewas-forms.js", "js/jewas-forms.js"),
-                new StaticResourcesRoute("/public/", "public/"),
-                new SimpleHtmlRoute("/", "todos.ftl")
-        ).start();
-        System.out.println("Ready, if you dare");
+        try{
+            final RestServer rs = RestServerFactory.createRestServer(options.httpPort());
+            rs.addRoutes(
+                    // new RedirectRoute("/", "/hello.html"),
+                    // Not really a static resource (located in webapp folder) since it is provided
+                    // by jewas library. So it must be declared before the StaticResourcesRoute !
+                    new SimpleFileRoute("/public/js/jewas/jewas-forms.js", "js/jewas-forms.js"),
+                    new StaticResourcesRoute("/public/", "public/"),
+                    new SimpleHtmlRoute("/", "todos.ftl")
+            ).start();
+            System.out.println("Ready, if you dare");
+        }catch(Throwable t){
+            t.printStackTrace(System.err);
+            System.exit(-1);
+        }
     }
 }
