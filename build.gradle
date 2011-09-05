@@ -51,11 +51,11 @@ def versionBase = "0.1"
 
 // handles releases gracefully
 gradle.taskGraph.whenReady {taskGraph ->
-   if (taskGraph.hasTask(':release')) {
+    if (taskGraph.hasTask(':release')) {
       version = versionBase
-   } else {
+    } else {
       version = versionBase + '-SNAPSHOT'
-   }
+    }
     jar {
       manifest {
         attributes 'Main-Class': 'fr.fsh.todos.Main'
@@ -91,6 +91,7 @@ dependencies {
     )
     testCompile(
             [group: 'junit', name: 'junit', version: '4.8.2', transitive: true],
+            [group: 'org.seleniumhq.selenium', name: 'selenium', version: '2.0rc2', transitive: true],
             [group: 'com.jayway.restassured', name: 'rest-assured', version: '1.2.1']
     )
     testRuntime 'net.sourceforge.cobertura:cobertura:1.9.4.1'
