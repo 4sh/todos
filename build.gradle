@@ -51,7 +51,7 @@ def ENV_PROPERTIES = [
    ]
 ]
 
-group = "fr.4sh.todos"
+def group = "fr.4sh.todos"
 def versionBase = "0.1"
 
 // handles releases gracefully
