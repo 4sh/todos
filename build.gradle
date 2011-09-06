@@ -187,7 +187,7 @@ task initSsh << {
     	classpath: configurations.ssh.asPath)
 }
 
-task uploadOnDemo(dependsOn: [initSsh, checkPropsForDeployment, test, build]) << {
+task uploadOnDemo(dependsOn: [initSsh, checkPropsForDeployment,/* test,*/ build]) << {
     def deployDirectory = ENV_PROPERTIES[System.properties[TARGET_ENV_SYS_PROPERTY]].targetDir
 
 	println "Deploying TODOs to $deployDirectory"
