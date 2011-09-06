@@ -97,6 +97,7 @@ dependencies {
             [group: 'com.jayway.restassured', name: 'rest-assured', version: '1.2.1']
     )
     testRuntime 'net.sourceforge.cobertura:cobertura:1.9.4.1'
+    testRuntime 'org.codehaus.groovy:groovy:1.7.10' // Fixing groovy dependency in order to avoid ranges
     ssh 'org.apache.ant:ant-jsch:1.7.0'
     // to use WebDav protocol on upload
     deployerJars "org.apache.maven.wagon:wagon-webdav-jackrabbit:1.0"
