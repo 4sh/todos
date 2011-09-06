@@ -68,7 +68,7 @@ gradle.taskGraph.whenReady {taskGraph ->
         attributes 'Implementation-Title': 'TODOs'
         attributes 'Implementation-Version': version
         attributes 'Implementation-Vendor': '4SH France'
-        if("true".equals(systemProperties["skipUberJar"])){
+        if("true".equals(System.properties["skipUberJar"])){
             attributes 'Class-Path': 'libs/freemarker-2.3.9.jar libs/gson-1.7.1.jar libs/jcommander-1.17.jar libs/jewas-0.1-SNAPSHOT.jar libs/joda-time-1.6.2.jar libs/netty-4.0.0.Alpha0-4sh.jar libs/slf4j-api-1.6.1.jar'
         }
       }
@@ -129,7 +129,7 @@ ideaModule {
 }
 
 if(STANDALONE_PACKAGING){
-    if(!("true".equals(systemProperties["skipUberJar"]))){
+    if(!("true".equals(System.properties["skipUberJar"]))){
         jar {
           // Convert every jars in a fatjar
           from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
