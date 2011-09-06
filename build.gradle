@@ -24,6 +24,9 @@ def ENV_DEMO_HOST = '91.121.39.83'
 def ENV_DEMO_USER = "todos"
 def ENV_DEMO_PASS = "4SHtofr"
 def ENV_DEMO_PORT = 2225
+// Ivy directory on demo host.
+// A ivy-latest.jar and settings.xml should be present in this directory
+def IVY_DIRECTORY=/home/todos/tooling/ivy
 // System property used to define target execution environnment used for deployment
 // See ENV_PROPERTIES map for the possible values to set in this system property
 def TARGET_ENV_SYS_PROPERTY = "deploy.target.env"
@@ -189,9 +192,22 @@ task initSsh << {
 
 task uploadOnDemo(dependsOn: [initSsh, checkPropsForDeployment,/* test,*/ build]) << {
     def deployDirectory = ENV_PROPERTIES[System.properties[TARGET_ENV_SYS_PROPERTY]].targetDir
+    def versionToDeploy = (System.properties["deploy.version"]==null?version:System.properties["deploy.version"])
 
 	println "Deploying TODOs to $deployDirectory"
+    println """cd ${deployDirectory} && java -jar ${IVY_DIRECTORY}/ivy-latest.jar -notransitive \
+		                cd ${deployDirectory} && -dependency ${group} ${rootProject.name} ${versionToDeploy} \
+		                -types jar -retrieve [artifact].[ext]"""
+    ant.ssh(host: ENV_DEMO_HOST, username: ENV_DEMO_USER, password: ENV_DEMO_PASS, port: ENV_DEMO_PORT,
+		command: """rm -f "${deployDirectory}/todo.jar" 2> "${deployDirectory}/rm.err.log" """,
+        trust: true, failonerror: false)
+    ant.ssh(host: ENV_DEMO_HOST, username: ENV_DEMO_USER, password: ENV_DEMO_PASS, port: ENV_DEMO_PORT,
+		command: """cd ${deployDirectory} && java -jar ${IVY_DIRECTORY}/ivy-latest.jar -notransitive \
+		                cd ${deployDirectory} && -dependency ${group} ${rootProject.name} ${versionToDeploy} \
+		                -types jar -retrieve [artifact].[ext]  2> "${deployDirectory}/ivyDL.err.log" """,
+        trust: true, failonerror: true)
 
+    /*
     def fileToUpload = file(libsDir.getAbsolutePath() + File.separator + rootProject.name + "-" + version + ".jar")
     println "Uploading ${fileToUpload.name} (${fileToUpload.size()/1000000} Mo) ..."
 
@@ -200,7 +216,7 @@ task uploadOnDemo(dependsOn: [initSsh, checkPropsForDeployment,/* test,*/ build]
             port: ENV_DEMO_PORT,
             trust: true,
             verbose: true
-    )
+    )*/
 }
 
 task startTODOS(dependsOn: [initSsh, checkPropsForDeployment]) << {
