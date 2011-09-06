@@ -207,17 +207,6 @@ task uploadOnDemo(dependsOn: [initSsh, checkPropsForDeployment]) << {
 		                -settings ${IVY_DIRECTORY}/settings.xml -dependency ${group} ${rootProject.name} ${versionToDeploy} \
 		                -types jar -retrieve [artifact].[ext]  2> "${deployDirectory}/ivyDL.err.log" """,
         trust: true, failonerror: true) 
-
-    /*
-    def fileToUpload = file(libsDir.getAbsolutePath() + File.separator + rootProject.name + "-" + version + ".jar")
-    println "Uploading ${fileToUpload.name} (${fileToUpload.size()/1000000} Mo) ..."
-
-    ant.scp2(file: fileToUpload,
-            remoteTofile: "${ENV_DEMO_USER}:${ENV_DEMO_PASS}@${ENV_DEMO_HOST}:${deployDirectory}/todos.jar",
-            port: ENV_DEMO_PORT,
-            trust: true,
-            verbose: true
-    )*/
 }
 
 task startTODOS(dependsOn: [initSsh, checkPropsForDeployment]) << {
