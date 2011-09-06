@@ -169,7 +169,7 @@ uploadArchives {
       }
    }
 }
-uploadArchives.dependsOn /*test, */ build
+uploadArchives.dependsOn test, build
 
 task checkPropsForDeployment << {
     if(System.properties[TARGET_ENV_SYS_PROPERTY] == null
@@ -225,7 +225,6 @@ task intTest(type: Test /* not really useful to re-do unit test before integ tes
     testClassesDir = sourceSets.intTest.classesDir
     classpath = sourceSets.intTest.runtimeClasspath
 }
-intTest.onlyIf { ! Boolean.getBoolean('skip.tests') }
 
 task initializeIntTestContext << {
     ant.echo "TODO: do things here !"
@@ -235,7 +234,10 @@ intTestClasses.dependsOn initializeIntTestContext
 test {
     systemProperties = System.properties
 }
-test.onlyIf { ! Boolean.getBoolean('skip.tests') }
+
+// Allowing to skip tests tasks...
+[intTest, test, testClasses].each {
+    task -> task.onlyIf { ! Boolean.getBoolean('skip.tests') } }
 
 // For cobertura ...
 if ("true".equals(System.getProperty(COVERAGE_SYS_PROPERTY))) {
