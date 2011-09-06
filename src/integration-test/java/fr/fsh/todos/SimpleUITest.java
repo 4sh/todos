@@ -30,9 +30,9 @@ public class SimpleUITest {
     @Parameterized.Parameters
     public static Collection data(){
         return Arrays.asList(new Object[][]{
-                //{ DesiredCapabilities.chrome() },
+                { DesiredCapabilities.chrome() },
                 //{ DesiredCapabilities.iphone() },
-                //{ DesiredCapabilities.internetExplorer() },
+                { DesiredCapabilities.internetExplorer() },
                 { DesiredCapabilities.firefox() }
         });
     }
