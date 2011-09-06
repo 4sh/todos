@@ -39,10 +39,12 @@ org.apache.ivy.util.url.CredentialsStore.INSTANCE.addCredentials("Artifactory Re
 def ENV_PROPERTIES = [
    nightly: [
            targetDir: ENV_DEMO_DEPLOY_ROOT_PATH+"/nightly",
-           todosPort: 18086
+           todosPort: 18086,
+           deploymentUrlForIntegrationTests: "http://nightly.bbeeg.4sh.fr"
    ], qa: [
            targetDir: ENV_DEMO_DEPLOY_ROOT_PATH+"/qa",
-           todosPort: 28086
+           todosPort: 28086,
+           deploymentUrlForIntegrationTests: "http://qa.bbeeg.4sh.fr"
    ]
 ]
 
@@ -216,6 +218,9 @@ task startTODOS(dependsOn: [initSsh, checkPropsForDeployment]) << {
 
 task intTest(type: Test /* not really useful to re-do unit test before integ tests, dependsOn: 'test' */) {
     systemProperties = System.properties
+    if(System.properties[TARGET_ENV_SYS_PROPERTY] != null){
+        systemProperties["integTest.baseUrl"] = ENV_PROPERTIES[System.properties[TARGET_ENV_SYS_PROPERTY]].deploymentUrlForIntegrationTests
+    }
     testClassesDir = sourceSets.intTest.classesDir
     classpath = sourceSets.intTest.runtimeClasspath
 }
