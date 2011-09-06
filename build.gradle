@@ -196,14 +196,14 @@ task uploadOnDemo(dependsOn: [initSsh, checkPropsForDeployment]) << {
 
 	println "Deploying TODOs to $deployDirectory"
     println """cd ${deployDirectory} && java -jar ${IVY_DIRECTORY}/ivy-latest.jar -notransitive \
-		                cd ${deployDirectory} && -dependency ${group} ${rootProject.name} ${versionToDeploy} \
+		                -settings ${deployDirectory}/settings.xml -dependency ${group} ${rootProject.name} ${versionToDeploy} \
 		                -types jar -retrieve [artifact].[ext]"""
     ant.ssh(host: ENV_DEMO_HOST, username: ENV_DEMO_USER, password: ENV_DEMO_PASS, port: ENV_DEMO_PORT,
 		command: """rm -f "${deployDirectory}/todo.jar" 2> "${deployDirectory}/rm.err.log" """,
         trust: true, failonerror: false)
     ant.ssh(host: ENV_DEMO_HOST, username: ENV_DEMO_USER, password: ENV_DEMO_PASS, port: ENV_DEMO_PORT,
 		command: """cd ${deployDirectory} && java -jar ${IVY_DIRECTORY}/ivy-latest.jar -notransitive \
-		                cd ${deployDirectory} && -dependency ${group} ${rootProject.name} ${versionToDeploy} \
+		                -settings ${deployDirectory}/settings.xml -dependency ${group} ${rootProject.name} ${versionToDeploy} \
 		                -types jar -retrieve [artifact].[ext]  2> "${deployDirectory}/ivyDL.err.log" """,
         trust: true, failonerror: true)
 
