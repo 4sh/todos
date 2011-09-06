@@ -4,7 +4,8 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -14,15 +15,14 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 /**
  * @author fcamblor
  */
 @RunWith(value = Parameterized.class)
-public class SelectUnselectLineTest {
+public class SimpleUITest {
 
     private WebDriver driver;
     private DesiredCapabilities testCapability;
@@ -30,14 +30,14 @@ public class SelectUnselectLineTest {
     @Parameterized.Parameters
     public static Collection data(){
         return Arrays.asList(new Object[][]{
-                { DesiredCapabilities.chrome() },
+                //{ DesiredCapabilities.chrome() },
                 //{ DesiredCapabilities.iphone() },
-                { DesiredCapabilities.internetExplorer() },
+                //{ DesiredCapabilities.internetExplorer() },
                 { DesiredCapabilities.firefox() }
         });
     }
 
-    public SelectUnselectLineTest(DesiredCapabilities cap){
+    public SimpleUITest(DesiredCapabilities cap){
         this.testCapability = cap;
     }
 
@@ -94,37 +94,55 @@ public class SelectUnselectLineTest {
         }
     }
 
-    @Test
-    public void shouldSelectAndUnselectScenarioBeOk() throws MalformedURLException {
-
-        createWebDriver("Selecting & unselecting radio button");
-
+    private void initialGet() {
         String baseUrl = System.getProperty("integTest.baseUrl", "http://qa.todos.4sh.fr/");
         driver.get(baseUrl);
-        assertThat(driver.findElements(By.xpath("//tr[contains(@class,\"task\")]")).size(), is(equalTo(3)));
-        assertThat(driver.findElements(By.xpath("//tr[contains(@class,\"done\")]")).size(), is(equalTo(0)));
+    }
 
-        driver.findElement(By.xpath("//tr[@id='task3']/td[position()=2]")).click();
-        driver.findElement(By.xpath("//tr[@id='task2']/td[position()=2]")).click();
-        driver.findElement(By.xpath("//tr[@id='task1']/td[position()=2]")).click();
+    @Test
+    public void shouldSelectAndUnselectChangeTitleClass() throws MalformedURLException {
+
+        createWebDriver("Selecting & unselecting radio button");
+        initialGet();
+
+        // Asserting initial state
+        assertThat(driver.findElements(By.cssSelector("tr.task")).size(), is(equalTo(3)));
+        assertThat(driver.findElements(By.cssSelector("tr.task.done")).size(), is(equalTo(0)));
+
+        driver.findElement(By.cssSelector("tr#task3 > td.title")).click();
+        driver.findElement(By.cssSelector("tr#task2 > td.title")).click();
+        driver.findElement(By.cssSelector("tr#task1 > td.title")).click();
 
         driver.findElement(By.cssSelector("#checkTask")).click();
 
-        assertThat(driver.findElements(By.xpath("//tr[@id = \"task1\" and contains(@class,\"done\")]")).size(), is(equalTo(1)));
-        assertThat(driver.findElements(By.xpath("//tr[@id != \"task1\" and contains(@class,\"done\")]")).size(), is(equalTo(0)));
+        assertThat(driver.findElements(By.cssSelector("tr.task.done")).size(), is(equalTo(1)));
+        assertThat(driver.findElements(By.cssSelector("tr#task1.done")).size(), is(equalTo(1)));
 
         driver.findElement(By.cssSelector("#checkTask")).click();
 
-        assertThat(driver.findElements(By.xpath("//tr[contains(@class,\"done\")]")).size(), is(equalTo(0)));
-
-        driver.findElement(By.cssSelector("#newTaskTitle")).sendKeys("My task 4");
-        driver.findElement(By.cssSelector("#newTask")).click();
-
-        assertThat(driver.findElements(By.xpath("//tr[contains(@class,\"task\")]")).size(), is(equalTo(4)));
-        assertThat(driver.findElements(By.xpath("//tr[contains(@class,\"task\") and position() = 4]/td[position()=2 and text()=\"My task 4\"]")).size(), is(equalTo(1)));
+        assertThat(driver.findElements(By.cssSelector("tr.task.done")).size(), is(equalTo(0)));
 
         System.out.println(driver.getTitle());
     }
 
+    @Test
+    public void shouldAddTaskButtonEffectivelyAddsANewTask() throws MalformedURLException {
 
+        createWebDriver("Adding new task");
+        initialGet();
+
+        assertThat(driver.findElements(By.cssSelector("tr.task")).size(), is(equalTo(3)));
+        assertThat(driver.findElements(By.cssSelector("tr.task.done")).size(), is(equalTo(0)));
+
+        assertThat(driver.findElements(By.cssSelector("tr#task4")).size(), is(equalTo(0)));
+
+        driver.findElement(By.cssSelector("#newTaskTitle")).sendKeys("My task 4");
+        driver.findElement(By.cssSelector("#newTask")).click();
+
+        assertThat(driver.findElements(By.cssSelector("tr.task")).size(), is(equalTo(4)));
+        assertThat(driver.findElements(By.cssSelector("tr#task4")).size(), is(equalTo(1)));
+        assertThat(driver.findElement(By.cssSelector("tr#task4 > td.title")).getText(), is(equalTo("My task 4")));
+
+        System.out.println(driver.getTitle());
+    }
 }
