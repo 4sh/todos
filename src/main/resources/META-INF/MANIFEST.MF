@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Created-By: Blah
+Built-By: Blah
+Main-Class: fr.fsh.todos.Main
+Implementation-Title: Manifest bidon pour que le uber jar fonctionne correctement... (le manifest sera remplacé au packaging)
+Implementation-Version: version-dev
