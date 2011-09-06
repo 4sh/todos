@@ -43,11 +43,11 @@ def ENV_PROPERTIES = [
    nightly: [
            targetDir: ENV_DEMO_DEPLOY_ROOT_PATH+"/nightly",
            todosPort: 18086,
-           deploymentUrlForIntegrationTests: "http://nightly.bbeeg.4sh.fr"
+           deploymentUrlForIntegrationTests: "http://nightly.todos.4sh.fr"
    ], qa: [
            targetDir: ENV_DEMO_DEPLOY_ROOT_PATH+"/qa",
            todosPort: 28086,
-           deploymentUrlForIntegrationTests: "http://qa.bbeeg.4sh.fr"
+           deploymentUrlForIntegrationTests: "http://qa.todos.4sh.fr"
    ]
 ]
 
