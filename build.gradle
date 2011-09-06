@@ -172,7 +172,8 @@ uploadArchives {
       }
    }
 }
-uploadArchives.dependsOn test, build
+// Maybe should we re-activate this to be sure uploaded artefact are always tested (and built, but that's obvious)
+//uploadArchives.dependsOn test, build
 
 task checkPropsForDeployment << {
     if(System.properties[TARGET_ENV_SYS_PROPERTY] == null
@@ -252,7 +253,7 @@ test {
 }
 
 // Allowing to skip tests tasks...
-[intTest, test, testClasses].each {
+[intTest, test, testClasses, compileTestJava].each {
     task -> task.onlyIf { ! Boolean.getBoolean('skip.tests') } }
 
 // For cobertura ...
