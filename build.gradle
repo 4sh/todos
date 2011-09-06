@@ -239,6 +239,7 @@ task intTest(type: Test /* not really useful to re-do unit test before integ tes
     if(System.properties[TARGET_ENV_SYS_PROPERTY] != null){
         systemProperties["integTest.baseUrl"] = ENV_PROPERTIES[System.properties[TARGET_ENV_SYS_PROPERTY]].deploymentUrlForIntegrationTests
     }
+    println "Configured integration test base URL : "+systemProperties["integTest.baseUrl"]
     testClassesDir = sourceSets.intTest.classesDir
     classpath = sourceSets.intTest.runtimeClasspath
 }
