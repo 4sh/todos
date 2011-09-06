@@ -189,17 +189,15 @@ task uploadOnDemo(dependsOn: [initSsh, checkPropsForDeployment, test, build]) <<
 
 	println "Deploying TODOs to $deployDirectory"
 
-    def libFiles = file(libsDir).listFiles().findAll { it =~ "\\.jar\$" }
-    libFiles.each { File f ->
-        println "Uploading ${f.name} (${f.size()/1000000} Mo) ..."
+    def fileToUpload = file(libsDir.getAbsolutePath() + File.separator + rootProject.name + "-" + version + ".jar")
+    println "Uploading ${fileToUpload.name} (${fileToUpload.size()/1000000} Mo) ..."
 
-        ant.scp2(file: f,
-                remoteTofile: "${ENV_DEMO_USER}:${ENV_DEMO_PASS}@${ENV_DEMO_HOST}:${deployDirectory}/todos.jar",
-                port: ENV_DEMO_PORT,
-                trust: true,
-                verbose: true
-        )
-    }
+    ant.scp2(file: fileToUpload,
+            remoteTofile: "${ENV_DEMO_USER}:${ENV_DEMO_PASS}@${ENV_DEMO_HOST}:${deployDirectory}/todos.jar",
+            port: ENV_DEMO_PORT,
+            trust: true,
+            verbose: true
+    )
 }
 
 task startTODOS(dependsOn: [initSsh, checkPropsForDeployment]) << {
