@@ -17,8 +17,8 @@ $(function() {
             if(node === null){
                 checkbox.appendTo(task.find(".action"));
             // FIXME : remove this else section for step 4
-            } else {
-                document.getElementById(task.attr("id")).getElementsByTagName('td')[0].appendChild(node);
+            //} else {
+            //    document.getElementById(task.attr("id")).getElementsByTagName('td')[0].appendChild(node);
             }
         }
     });
