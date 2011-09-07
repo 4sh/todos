@@ -74,7 +74,7 @@ public class SimpleUITest {
 		}
 	}
 
-    @Ignore("Useless test 'til step 4")
+    //@Ignore("Useless test 'til step 3")
     @Test
     public void shouldSelectTaskNotDoneDisplayUncheckedCheckbox() throws MalformedURLException {
         driver = WebDriverTestHelper.createWebDriver("Select task not done", this.testCapability);
@@ -85,6 +85,11 @@ public class SimpleUITest {
         if (!driver.findElement(By.id("checkTask")).isSelected()) {
             driver.findElement(By.id("checkTask")).click();
         };
+        try {
+            assertTrue(driver.findElement(By.id("checkTask")).isSelected());
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
         driver.findElement(By.xpath("//tr[@id='task2']//td[.='My task 2']")).click();
         try {
             assertFalse(driver.findElement(By.id("checkTask")).isSelected());
