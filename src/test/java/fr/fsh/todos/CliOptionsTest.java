@@ -1,7 +1,6 @@
 package fr.fsh.todos;
 
 import com.beust.jcommander.JCommander;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -13,7 +12,6 @@ import static org.junit.Assert.*;
 public class CliOptionsTest {
 
     // FIXME : un-ignore this test for step 1
-    @Ignore("Ignoring this test before step 1...")
     @Test
     public void shouldHttpPortBeSetTo8086ByDefault(){
         CliOptions cliOptions = new CliOptions();
