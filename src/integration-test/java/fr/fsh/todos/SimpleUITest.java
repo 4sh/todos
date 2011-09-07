@@ -79,7 +79,7 @@ public class SimpleUITest extends SeleneseTestBase {
     @Test
     public void shouldAddTaskButtonEffectivelyAddsANewTask() throws MalformedURLException {
 
-        this.driver = WebDriverTestHelper.createWebDriver("Selecting & unselecting radio button", this.testCapability);
+        this.driver = WebDriverTestHelper.createWebDriver("Adding task", this.testCapability);
 
         assertThat(driver.findElements(By.cssSelector("tr.task")).size(), is(equalTo(3)));
         assertThat(driver.findElements(By.cssSelector("tr.task.done")).size(), is(equalTo(0)));
