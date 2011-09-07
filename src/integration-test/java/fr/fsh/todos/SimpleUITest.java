@@ -29,10 +29,12 @@ public class SimpleUITest extends SeleneseTestBase {
 
     @Parameterized.Parameters
     public static Collection data(){
+        DesiredCapabilities ie6Capabilities = DesiredCapabilities.internetExplorer();
+        ie6Capabilities.setVersion("6");
         return Arrays.asList(new Object[][]{
                 //{ DesiredCapabilities.chrome() },
                 //{ DesiredCapabilities.iphone() },
-                { DesiredCapabilities.internetExplorer() },
+                { ie6Capabilities },
                 { DesiredCapabilities.firefox() }
         });
     }
