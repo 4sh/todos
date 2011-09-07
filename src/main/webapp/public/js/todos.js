@@ -12,7 +12,6 @@ $(function() {
             task.addClass("edit");
             // FIXME : uncomment following lines for step 3
             checkbox.attr('checked', task.hasClass('done'));
-            checkbox.appendTo(task.find(".action"));
 
             var node = document.getElementById('checkTask');
             if(node === null){
