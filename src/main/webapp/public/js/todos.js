@@ -10,7 +10,7 @@ $(function() {
         } else {
             $(".task").removeClass("edit");
             task.addClass("edit");
-            // FIXME : switch comment between 2 following lines for step 3
+            // FIXME : uncomment following lines for step 3
             // checkbox.attr('checked', task.hasClass('done'));
             checkbox.appendTo(task.find(".action"));
 
