@@ -1,11 +1,14 @@
 package fr.fsh.todos;
 
+import com.thoughtworks.selenium.SeleneseTestBase;
+import com.thoughtworks.selenium.Selenium;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverBackedSelenium;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
@@ -19,7 +22,7 @@ import static org.junit.Assert.*;
  * @author fcamblor
  */
 @RunWith(value = Parameterized.class)
-public class SimpleUITest {
+public class SimpleUITest extends SeleneseTestBase {
 
     private WebDriver driver = null;
     private DesiredCapabilities testCapability;
@@ -27,7 +30,7 @@ public class SimpleUITest {
     @Parameterized.Parameters
     public static Collection data(){
         return Arrays.asList(new Object[][]{
-                { DesiredCapabilities.chrome() },
+                //{ DesiredCapabilities.chrome() },
                 //{ DesiredCapabilities.iphone() },
                 { DesiredCapabilities.internetExplorer() },
                 { DesiredCapabilities.firefox() }
@@ -43,6 +46,7 @@ public class SimpleUITest {
         if(driver != null){
             driver.quit();
         }
+        super.checkForVerificationErrors();
     }
 
     @Test
@@ -89,4 +93,36 @@ public class SimpleUITest {
 
         System.out.println(driver.getTitle());
     }
+
+    @Test
+    public void shouldSelectTaskNotDoneDisplayUncheckedCheckbox() throws MalformedURLException {
+        driver = WebDriverTestHelper.createWebDriver("Select task not done", this.testCapability);
+        Selenium selenium = new WebDriverBackedSelenium(driver, WebDriverTestHelper.getBaseUrl());
+
+        // copy / pasted code goes here
+        // when in state
+
+
+
+        // Pour tests...
+        selenium.open("/");
+        selenium.waitForPageToLoad("60000");
+
+        // Switch & select task 3
+        selenium.click("xpath=//tr[@id='task3']//td[@class='title']");
+        verifyFalse(selenium.isChecked("id=checkTask"));
+        selenium.click("id=checkTask");
+        verifyTrue(selenium.isChecked("id=checkTask"));
+
+        // Switch to task 2 : checkbox should not be selected
+        selenium.click("xpath=//tr[@id='task2']//td[@class='title']");
+        verifyFalse(selenium.isChecked("id=checkTask"));
+
+        // Back to task 3 : checkbox should be selected !
+        selenium.click("xpath=//tr[@id='task3']//td[@class='title']");
+        verifyTrue(selenium.isChecked("id=checkTask"));
+
+        System.out.println(driver.getTitle());
+    }
+    
 }
