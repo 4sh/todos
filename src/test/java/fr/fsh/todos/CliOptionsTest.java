@@ -7,7 +7,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 /**
- * @author fcamblor
+ * @author fcamblor@4sh
  */
 public class CliOptionsTest {
 
