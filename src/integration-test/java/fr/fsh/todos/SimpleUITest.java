@@ -74,6 +74,7 @@ public class SimpleUITest {
 		}
 	}
 
+    @Ignore("Useless test 'til step 4")
     @Test
     public void shouldSelectTaskNotDoneDisplayUncheckedCheckbox() throws MalformedURLException {
         driver = WebDriverTestHelper.createWebDriver("Select task not done", this.testCapability);
