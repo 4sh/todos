@@ -19,7 +19,7 @@ public class CliOptionsTest {
         String[] args = new String[]{};
         new JCommander(cliOptions, args);
         // FIXME: remove hyphen for step 2
-        assertThat(cliOptions.httpPort(), is(equalTo(-8086)));
+        assertThat(cliOptions.httpPort(), is(equalTo(8086)));
     }
 
     @Test
