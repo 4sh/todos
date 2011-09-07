@@ -7,6 +7,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author fcamblor
@@ -37,6 +38,7 @@ public class WebDriverTestHelper {
         }
 
         initialGet(driver);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         return driver;
     }
 
