@@ -75,6 +75,22 @@ public class SimpleUITest {
 
         // copy / pasted code goes here
         // when in state
+        driver.findElement(By.xpath("//tr[@id='task1']//td[.='My task 1']")).click();
+        if (!driver.findElement(By.id("checkTask")).isSelected()) {
+            driver.findElement(By.id("checkTask")).click();
+        };
+        driver.findElement(By.xpath("//tr[@id='task2']//td[.='My task 2']")).click();
+        try {
+            assertFalse(driver.findElement(By.id("checkTask")).isSelected());
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        driver.findElement(By.xpath("//tr[@id='task1']//td[.='My task 1']")).click();
+        try {
+            assertTrue(driver.findElement(By.id("checkTask")).isSelected());
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
 
 
 
