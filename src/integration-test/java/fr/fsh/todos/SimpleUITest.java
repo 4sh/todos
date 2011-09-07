@@ -64,7 +64,7 @@ public class SimpleUITest {
         }
     }
 
-    // I don't like this either :(
+    // I don't like this either ... but it was potentially needed by selenium ide generated code :(
     private boolean isElementPresent(By by) {
 		try {
 			driver.findElement(by);
