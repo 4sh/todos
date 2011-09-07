@@ -14,7 +14,7 @@ import java.net.URL;
 public class WebDriverTestHelper {
     public static WebDriver createWebDriver(String testName, DesiredCapabilities templateCapability) throws MalformedURLException {
         String driverImpl = System.getProperty("integTest.driver", "remoteWebDriver");
-        String driverParam = System.getProperty("integTest.driver.param");
+        String driverParam = System.getProperty("integTest.driver.param", "http://fcamblor:745b941c-70e8-414a-9b2d-8265ec8bc102@ondemand.saucelabs.com:80/wd/hub");
 
         // Overriding current testCapability name to log
         // desired permutation for current test
@@ -63,7 +63,10 @@ public class WebDriverTestHelper {
     }
 
     public static void initialGet(WebDriver driver) {
-        String baseUrl = System.getProperty("integTest.baseUrl", "http://qa.todos.4sh.fr/");
-        driver.get(baseUrl);
+        driver.get(getBaseUrl());
+    }
+
+    public static String getBaseUrl() {
+        return System.getProperty("integTest.baseUrl", "http://qa.todos.4sh.fr/");
     }
 }
