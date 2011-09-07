@@ -1,6 +1,7 @@
 $(function() {
     var checkbox = $("<input type='checkbox' id='checkTask'>");
 
+    // FIXME : to uncomment for step 1
     $(".task .title").live('click', function() {
         var task = $(this).closest('.task');
         if (task.hasClass("edit")) {
@@ -9,9 +10,18 @@ $(function() {
         } else {
             $(".task").removeClass("edit");
             task.addClass("edit");
-            checkbox.appendTo(task.find(".action"));
+            checkbox.attr('checked', task.hasClass('done'));
+            // checkbox.appendTo(task.find(".action"));
+
+            var node = document.getElementById('checkTask');
+            if(node === null){
+                checkbox.appendTo(task.find(".action"));
+            } else {
+                document.getElementById(task.attr("id")).getElementsByTagName('td')[0].appendChild(node);
+            }
         }
     });
+
 
     $("#newTask").click(function () {
         var title = $("#newTaskTitle").val();
@@ -20,7 +30,6 @@ $(function() {
             .appendTo(".todos tbody");
         $("#newTaskTitle").val('');
         $("#success").fadeIn().delay(1500).fadeOut();
-
     });
 
 
