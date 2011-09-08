@@ -10,8 +10,8 @@ $(function() {
         } else {
             $(".task").removeClass("edit");
             task.addClass("edit");
-            // FIXME : uncomment following lines for step 3
-            // checkbox.attr('checked', task.hasClass('done'));
+            //FIXME : uncomment following lines for step 3
+             checkbox.attr('checked', task.hasClass('done'));
 
             var node = document.getElementById('checkTask');
             if(node === null){
