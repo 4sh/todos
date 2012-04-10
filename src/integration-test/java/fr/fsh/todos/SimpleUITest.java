@@ -80,8 +80,11 @@ public class SimpleUITest {
         driver = WebDriverTestHelper.createWebDriver("Select task not done", this.testCapability);
 
         // FIXME : copy / paste here code generated from Selenium IDE for step 3
-
-
+        driver.get("/");
+		driver.findElement(By.cssSelector("td.title")).click();
+		driver.findElement(By.id("checkTask")).click();
+		driver.findElement(By.cssSelector("#task2 > td.title")).click();
+		assertEquals("off", driver.findElement(By.id("checkTask")).getAttribute("value"));
 
 
         // Pour tests...
