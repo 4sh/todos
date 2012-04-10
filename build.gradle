@@ -3,8 +3,8 @@ apply plugin: 'idea'
 apply plugin: 'sonar'
 apply plugin: 'maven'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
 
 // For cobertura
 def cobSerFile = "${project.buildDir}/reports/tests/cobertura.ser"
@@ -95,7 +95,8 @@ configurations {
 }
 
 dependencies {
-    compile(group: 'fr.4sh.jewas', name: 'jewas', version: '0.1-SNAPSHOT', transitive: true){ changing = true }
+    compile fileTree (dir: 'lib', includes: ['*.jar'])
+//    compile(group: 'fr.4sh.jewas', name: 'jewas', version: '0.1-SNAPSHOT', transitive: true){ changing = true }
     compile(
             [group: 'com.beust', name:'jcommander', version: '1.17', transitive: true]
     )
