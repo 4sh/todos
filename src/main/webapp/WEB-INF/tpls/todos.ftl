@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-1.1.1.min.css">
+    <link rel="stylesheet" href="/public/css/bootstrap.css">
     <style>
         .todos .action { width: 40px; }
         .todos .title { cursor: pointer; }
