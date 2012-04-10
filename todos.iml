@@ -13,18 +13,16 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="gradle-1.0-milestone-3" level="application" />
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/cache/fr.4sh.jewas/jewas/jars/jewas-0.1-SNAPSHOT.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jewas-0.1-20110902.134808-5.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/.gradle/cache/fr.4sh.jewas/jewas/sources/jewas-0.1-SNAPSHOT-sources.jar!/" />
-        </SOURCES>
+        <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="gradle-1.0-milestone-3" level="application" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
