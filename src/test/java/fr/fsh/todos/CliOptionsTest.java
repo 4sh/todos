@@ -1,10 +1,10 @@
 package fr.fsh.todos;
 
 import com.beust.jcommander.JCommander;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 /**
@@ -20,7 +20,7 @@ public class CliOptionsTest {
         String[] args = new String[]{};
         new JCommander(cliOptions, args);
         // FIXME: remove hyphen for step 2
-        assertThat(cliOptions.httpPort(), is(equalTo(-8086)));
+        assertThat(cliOptions.httpPort(), is(equalTo(8086)));
     }
 
     @Test
