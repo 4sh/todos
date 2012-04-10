@@ -21,10 +21,10 @@ def STANDALONE_PACKAGING = true
 def ENV_DEMO_DEPLOY_ROOT_PATH = "/home/todos/dist";
 // Demo connection properties
 // FIXME : Externalize this into gradle.properties (into a single todosDemoConnectionUrl property ?)
-def ENV_DEMO_HOST = '91.121.39.83'
+def ENV_DEMO_HOST = '192.168.0.70'
 def ENV_DEMO_USER = "todos"
 def ENV_DEMO_PASS = "4SHtofr"
-def ENV_DEMO_PORT = 2225
+def ENV_DEMO_PORT = 22
 // Ivy directory on demo host.
 // A ivy-latest.jar and settings.xml should be present in this directory
 def IVY_DIRECTORY="/home/todos/tooling/ivy"
