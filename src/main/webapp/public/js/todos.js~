@@ -10,8 +10,13 @@ $(function() {
         } else {
             $(".task").removeClass("edit");
             task.addClass("edit");
+<<<<<<< HEAD
+            //FIXME : uncomment following lines for step 3
+             checkbox.attr('checked', task.hasClass('done'));
+=======
             // FIXME : uncomment following lines for step 3
             // checkbox.attr('checked', task.hasClass('done'));
+>>>>>>> parent of d3011c9... back to step 0
 
             var node = document.getElementById('checkTask');
             if(node === null){
