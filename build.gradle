@@ -147,6 +147,11 @@ if(STANDALONE_PACKAGING){
     }
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.0-milestone-3'
+    jarFile = 'wrapper/wrapper.jar'
+}
+
 task packageJavadoc(type: Jar, dependsOn: 'javadoc') {
    from javadoc.destinationDir
    classifier = 'javadoc'
